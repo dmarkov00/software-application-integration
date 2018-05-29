@@ -1,4 +1,4 @@
 package loanbroker.gui;
 
-public class ListViewLine{
+public class ListViewLine {
 }
