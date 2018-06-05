@@ -31,7 +31,7 @@
             <TextField fx:id="tfSsn" GridPane.columnIndex="1" />
             <TextField fx:id="tfAmount" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tfTime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btnSendLoanRequest" mnemonicParsing="false" onAction="#btnSendLoanRequestClicked" prefHeight="25.0" prefWidth="122.0" text="send loan request" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Button fx:id="btnSendLoanRequest" mnemonicParsing="false" onAction="#btnSendLoanRequestClicked" prefHeight="28.0" prefWidth="133.0" text="send loan request" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
          <BorderPane.margin>
             <Insets />

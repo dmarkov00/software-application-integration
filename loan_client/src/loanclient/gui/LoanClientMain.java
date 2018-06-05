@@ -12,7 +12,7 @@ public class LoanClientMain extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("loanclient.fxml"));
         primaryStage.setTitle("Loan Client");
-        primaryStage.setScene(new Scene(root, 500,300));
+        primaryStage.setScene(new Scene(root, 600,400));
         primaryStage.show();
     }
 

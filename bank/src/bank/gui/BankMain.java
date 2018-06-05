@@ -19,7 +19,7 @@ public class BankMain extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("bank.fxml"));
         primaryStage.setTitle("BANK - ABN Amro");
 
-        primaryStage.setScene(new Scene(root, 500,300));
+        primaryStage.setScene(new Scene(root, 600,350));
         primaryStage.show();
     }
 

@@ -11,8 +11,8 @@ public class LoanBrokerMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("loanbroker.fxml"));
-        primaryStage.setTitle("Loan Client");
-        primaryStage.setScene(new Scene(root, 500,300));
+        primaryStage.setTitle("Loan Broker");
+        primaryStage.setScene(new Scene(root, 700,400));
         primaryStage.show();
     }
 
