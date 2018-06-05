@@ -1,3 +1,5 @@
+package gateways;
+
 import org.apache.camel.Producer;
 
 import javax.jms.*;

@@ -1,3 +1,4 @@
+package gateways;
 import org.apache.camel.Consumer;
 
 import javax.jms.*;
