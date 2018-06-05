@@ -14,4 +14,6 @@ public class MessageReceiverGateway {
     public void MessageReceiverGateway(String channelName) {
         this.channelName = channelName;
     }
+
+
 }
