@@ -63,10 +63,6 @@ public class MessageSenderGateway {
 
     }
 
-    public Destination createDestination() {
-
-    }
-
     public void send(Message msg) {
 
     }
