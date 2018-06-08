@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import loanclient.backend.LoanBrokerAppGateway;
+import loanclient.backend.LoanSerializer;
 import loanclient.model.LoanRequest;
 
 import java.net.URL;
@@ -17,13 +19,15 @@ public class LoanClientController implements Initializable {
     public TextField tfTime;
     public ListView<ListViewLine> lvLoanRequestReply;
 
+    private LoanBrokerAppGateway loanBrokerAppGateway;
+
     @FXML
-    public void btnSendLoanRequestClicked(){
+    public void btnSendLoanRequestClicked() {
         // create the BankInterestRequest
         int ssn = Integer.parseInt(tfSsn.getText());
         int amount = Integer.parseInt(tfAmount.getText());
         int time = Integer.parseInt(tfTime.getText());
-        LoanRequest loanRequest = new LoanRequest(ssn,amount,time);
+        LoanRequest loanRequest = new LoanRequest(ssn, amount, time);
 
         //create the ListView line with the request and add it to lvLoanRequestReply
         ListViewLine listViewLine = new ListViewLine(loanRequest);
@@ -31,17 +35,20 @@ public class LoanClientController implements Initializable {
 
         // to do: send the message with this loanRequest...
         // ....
+        loanBrokerAppGateway.applyForLoan(loanRequest);
+
     }
 
     /**
      * This method returns the line of lvMessages which contains the given loan request.
+     *
      * @param request BankInterestRequest for which the line of lvMessages should be found and returned
      * @return The ListView line of lvMessages which contains the given request
      */
     private ListViewLine getRequestReply(LoanRequest request) {
 
         for (int i = 0; i < lvLoanRequestReply.getItems().size(); i++) {
-            ListViewLine rr =  lvLoanRequestReply.getItems().get(i);
+            ListViewLine rr = lvLoanRequestReply.getItems().get(i);
             if (rr.getLoanRequest() != null && rr.getLoanRequest() == request) {
                 return rr;
             }
