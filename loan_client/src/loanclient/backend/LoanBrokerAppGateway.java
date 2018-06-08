@@ -19,7 +19,7 @@ public class LoanBrokerAppGateway {
         // Add a dependency
         Message msg = sender.createTextMessage(loanRequestAsJSON);
 
-
+        sender.send(msg);
     }
 
     public void onLoanReplyArrived(LoanRequest request, LoanReply reply) {

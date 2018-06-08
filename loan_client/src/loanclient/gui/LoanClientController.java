@@ -19,7 +19,7 @@ public class LoanClientController implements Initializable {
     public TextField tfTime;
     public ListView<ListViewLine> lvLoanRequestReply;
 
-    private LoanBrokerAppGateway loanBrokerAppGateway;
+    private LoanBrokerAppGateway loanBrokerAppGateway = new LoanBrokerAppGateway();
 
     @FXML
     public void btnSendLoanRequestClicked() {

@@ -26,6 +26,8 @@ public class MessageSenderGateway {
             props.put(("queue." + requestQueue), requestQueue);
             props.put(("queue." + replyQueue), replyQueue);
 
+            this.jndiContext = new InitialContext(props);
+
             // Setup connection
             ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext
                     .lookup("ConnectionFactory");
@@ -36,7 +38,6 @@ public class MessageSenderGateway {
 
             producer = session.createProducer(sendDestination);
 
-            this.jndiContext = new InitialContext(props);
         } catch (NamingException | JMSException e) {
             e.printStackTrace();
         }
