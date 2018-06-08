@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import loanclient.backend.LoanBrokerAppGateway;
 import loanclient.backend.LoanSerializer;
+import loanclient.model.LoanReply;
 import loanclient.model.LoanRequest;
 
 import java.net.URL;
@@ -19,7 +20,7 @@ public class LoanClientController implements Initializable {
     public TextField tfTime;
     public ListView<ListViewLine> lvLoanRequestReply;
 
-    private LoanBrokerAppGateway loanBrokerAppGateway = new LoanBrokerAppGateway();
+    private LoanBrokerAppGateway loanBrokerAppGateway;
 
     @FXML
     public void btnSendLoanRequestClicked() {
@@ -62,5 +63,18 @@ public class LoanClientController implements Initializable {
         tfSsn.setText("123456");
         tfAmount.setText("80000");
         tfTime.setText("30");
+
+        loanBrokerAppGateway = new LoanBrokerAppGateway() {
+            @Override
+            public void onLoanReplyArrived(LoanRequest request, LoanReply reply) {
+
+                // Handle somehow the data
+                onReply(request, reply);
+
+                // Visualize reply
+            }
+        };
     }
+
+
 }

@@ -6,8 +6,9 @@ import loanclient.model.LoanReply;
 import loanclient.model.LoanRequest;
 
 import javax.jms.Message;
+import javax.jms.MessageListener;
 
-public class LoanBrokerAppGateway {
+public abstract class LoanBrokerAppGateway {
     private MessageSenderGateway sender;
     private MessageReceiverGateway receiver;
     private LoanSerializer loanSerializer = new LoanSerializer();
@@ -22,7 +23,16 @@ public class LoanBrokerAppGateway {
         sender.send(msg);
     }
 
-    public void onLoanReplyArrived(LoanRequest request, LoanReply reply) {
+    public abstract void onLoanReplyArrived(LoanRequest request, LoanReply reply);
 
+    public void onReply(LoanRequest request, LoanReply reply) {
+
+        receiver.setListener(new MessageListener() {
+            @Override
+            public void onMessage(Message message) {
+                // TODO
+            }
+        });
     }
+
 }
