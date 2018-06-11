@@ -51,6 +51,7 @@ public class ClientController implements Initializable {
     @FXML
     private void jbSendActionPerformed() {
             // TO DO create and send the TravelRefundRequest
+        System.out.println("ho");
     }
 
     @FXML

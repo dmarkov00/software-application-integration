@@ -46,7 +46,7 @@
             <TextField fx:id="tfDestinationCity" text="Amsterdam" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <TextField fx:id="tfStudent" text="Joe Smith" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <TextField fx:id="tfCosts" text="0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button fx:id="btnSend" mnemonicParsing="false" prefHeight="25.0" prefWidth="494.0" text="send travel refund request" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+            <Button fx:id="btnSend" onAction="#jbSendActionPerformed" mnemonicParsing="false" prefHeight="25.0" prefWidth="494.0" text="send travel refund request" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
             <ComboBox fx:id="cbTravelMode" onAction="#jcbModeItemStateChanged" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
          </children>
          <opaqueInsets>
