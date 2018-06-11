@@ -15,14 +15,17 @@ public class ClientMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setOnCloseRequest((EventHandler) t -> {
-            Platform.exit();
-            System.exit(0);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
         });
         Parent root = FXMLLoader.load(getClass().getResource("client.fxml"));
         primaryStage.setTitle("Travel Refund Client");
 
-        primaryStage.setOnCloseRequest(new EventHandler<>() {
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
                 Platform.exit();

@@ -15,7 +15,7 @@ public class CostsContentEnricher {
     private ClientConfig config = new ClientConfig();
     private Client client = ClientBuilder.newClient(config);
 
-    public void getPricePerKilometer() {
+    public Double getPricePerKilometer() {
         URI baseURI = UriBuilder.fromUri("http://localhost:8080/priceperkm8/rest/price").build();
 
         WebTarget serviceTarget = client.target(baseURI);
@@ -23,12 +23,11 @@ public class CostsContentEnricher {
         Response response = serviceTarget.request().accept(MediaType.TEXT_PLAIN).get();
 
         Double result = response.readEntity(Double.class);
-
+        System.out.println(result);
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
-            System.out.println(result);
-        }
-        else {
-            System.out.println("error");
+            return result;
+        } else {
+            return -1d;
         }
     }
 

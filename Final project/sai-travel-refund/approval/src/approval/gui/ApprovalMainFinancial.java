@@ -20,9 +20,12 @@ public class ApprovalMainFinancial extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.setOnCloseRequest((EventHandler) t -> {
-            Platform.exit();
-            System.exit(0);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Platform.exit();
+                System.exit(0);
+            }
         });
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("approval.fxml"));
@@ -35,7 +38,7 @@ public class ApprovalMainFinancial extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Travel Approval - " + this.APPLICATION_NAME);
 
-        primaryStage.setOnCloseRequest(new EventHandler<>() {
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
                 Platform.exit();
