@@ -7,24 +7,23 @@ import models.client.TravelRefundRequest;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-public class ClientAppGateway {
+public abstract class ClientAppGateway {
     private MessageSenderGateway sender;
-    private MessageReceiverGateway receiver = new MessageReceiverGateway("brokerRequestQueue");
 
-//    public void onTravelRefundRequestArrived(TravelRefundRequest travelRefundRequest) {
-//
-//        // Visualize the refund request
-//
-//
-//        // Send the message to approval request or the other stuff via their classes
-//    }
+    protected ClientAppGateway() {
+        MessageReceiverGateway receiver = new MessageReceiverGateway("brokerRequestQueue");
 
-    public void setTravelRefundRequestListener() {
         receiver.setListener(new MessageListener() {
             @Override
             public void onMessage(Message message) {
-                System.out.println("Received a message");
+                System.out.println(message);
+
+                onTravelRefundRequestArrived("Received a message from a class");
             }
         });
     }
+
+
+    public abstract void onTravelRefundRequestArrived(String travelRefundRequest);
+
 }
