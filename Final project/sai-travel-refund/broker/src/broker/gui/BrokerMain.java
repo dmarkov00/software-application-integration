@@ -12,7 +12,7 @@ public class BrokerMain extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("broker.fxml"));
         primaryStage.setTitle("Travel Broker");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 720, 310));
         primaryStage.show();
     }
 
