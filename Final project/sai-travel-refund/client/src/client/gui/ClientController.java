@@ -80,8 +80,18 @@ public class ClientController implements Initializable {
         // Create object
         TravelRefundRequest travelRefundRequest = new TravelRefundRequest(teacher, student, origin, destination, costs);
 
-        // Call the app gateway
+        // Call the app gateway and send a request
         brokerAppGateway.requestTravelRefund(travelRefundRequest);
+
+        //Create a ListView line with the request and add it to the list view
+        ClientListLine listViewLine = new ClientListLine(travelRefundRequest,null);
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lvRequestReply.getItems().add(listViewLine);
+            }
+        });
     }
 
     @FXML

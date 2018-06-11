@@ -16,18 +16,16 @@ public class BrokerController implements Initializable {
     private ListView<BrokerListLine> lvBrokerRequestReply;
 
     private ClientAppGateway clientAppGateway = new ClientAppGateway() {
-        @FXML
         @Override
         public void onTravelRefundRequestArrived(TravelRefundRequest travelRefundRequest) {
-            BrokerListLine listViewLine = new BrokerListLine(travelRefundRequest, null);
 
+            //Create a ListView line with the request and add it to the list view
+            BrokerListLine listViewLine = new BrokerListLine(travelRefundRequest, null);
 
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    //Create a ListView line with the request and add it to the list view
                     lvBrokerRequestReply.getItems().add(listViewLine);
-
                 }
             });
 
