@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.ClientController">
+   <center>
+      <ListView fx:id="lvRequestReply" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <GridPane hgap="5.0" prefHeight="242.0" prefWidth="541.0" vgap="5.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.0" minWidth="10.0" prefWidth="88.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="131.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="67.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="166.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="street" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label text="number" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="city" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label text="TEACHER" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label text="TRAVEL MODE" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <Label text="ORIGIN" GridPane.columnIndex="1" />
+            <Label text="DESTINATION" GridPane.columnIndex="3" />
+            <Label text="street" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label text="number" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="city" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Label text="STUDENT" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Label fx:id="lbCosts" text="COSTS" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <TextField fx:id="tfOriginStreet" text="Rachelsmolen" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tfOriginNumber" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfOriginCity" text="Eindhoven" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="tfTeacher" text="PES" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="tfDestinationStreet" text="Osdorpplein" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="tfDestinationNumber" text="113" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="tfDestinationCity" text="Amsterdam" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="tfStudent" text="Joe Smith" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField fx:id="tfCosts" text="0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button fx:id="btnSend" mnemonicParsing="false" prefHeight="25.0" prefWidth="494.0" text="send travel refund request" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+            <ComboBox fx:id="cbTravelMode" onAction="#jcbModeItemStateChanged" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </GridPane>
+   </top>
+</BorderPane>
