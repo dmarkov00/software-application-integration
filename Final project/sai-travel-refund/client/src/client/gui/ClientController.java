@@ -46,12 +46,10 @@ public class ClientController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cbTravelMode.getItems().addAll(
-                "car",
-                "public transport"
-        );
+        cbTravelMode.getItems().addAll("car", "public transport");
         cbTravelMode.getSelectionModel().select(0);
         jcbModeItemStateChanged();
+
     }
 
     private ClientListLine getRequestReply(TravelRefundRequest request) {
