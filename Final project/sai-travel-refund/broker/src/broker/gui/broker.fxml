@@ -13,6 +13,6 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <ListView prefHeight="300.0" prefWidth="700.0" />
+      <ListView fx:id="lvBrokerRequestReply" prefHeight="300.0" prefWidth="700.0" />
    </children>
 </GridPane>
