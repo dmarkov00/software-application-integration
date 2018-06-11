@@ -13,7 +13,7 @@ public class ApprovalMainFinancial extends Application {
 
     private final String APPLICATION_NAME = "Financial Department";
 
-    private final int WIDTH = 400;
+    private final int WIDTH = 500;
     private final int HEIGHT = 280;
 
 
