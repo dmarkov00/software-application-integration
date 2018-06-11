@@ -1,5 +1,6 @@
 package client.gui;
 
+import client.backend.BrokerAppGateway;
 import client.model.Address;
 import client.model.ClientTravelMode;
 import client.model.TravelRefundReply;
@@ -17,6 +18,22 @@ import java.util.ResourceBundle;
 
 public class ClientController implements Initializable {
     @FXML
+    public TextField tfOriginStreet;
+    @FXML
+    public TextField tfOriginNumber;
+    @FXML
+    public TextField tfOriginCity;
+    @FXML
+    public TextField tfTeacher;
+    @FXML
+    public TextField tfDestinationStreet;
+    @FXML
+    public TextField tfDestinationNumber;
+    @FXML
+    public TextField tfDestinationCity;
+    @FXML
+    public TextField tfStudent;
+    @FXML
     private ComboBox cbTravelMode;
     @FXML
     private TextField tfCosts;
@@ -25,7 +42,7 @@ public class ClientController implements Initializable {
     @FXML
     private ListView<ClientListLine> lvRequestReply;
 
-
+    private BrokerAppGateway brokerAppGateway = new BrokerAppGateway();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,17 +65,32 @@ public class ClientController implements Initializable {
 
         return null;
     }
+
     @FXML
     private void jbSendActionPerformed() {
-            // TO DO create and send the TravelRefundRequest
-        System.out.println("ho");
+        // TO DO create and send the TravelRefundRequest
+
+        // Retrieve data from fields
+        Address origin = new Address(tfOriginStreet.getText(), Integer.parseInt(tfOriginNumber.getText()),
+                tfOriginCity.getText());
+        Address destination = new Address(tfDestinationStreet.getText(), Integer.parseInt(tfDestinationNumber.getText()),
+                tfDestinationCity.getText());
+        String teacher = tfTeacher.getText();
+        String student = tfStudent.getText();
+        double costs = Double.parseDouble(tfCosts.getText());
+
+        // Create object
+        TravelRefundRequest travelRefundRequest = new TravelRefundRequest(teacher, student, origin, destination, costs);
+
+        // Call the app gateway
+        brokerAppGateway.requestTravelRefund(travelRefundRequest);
     }
 
     @FXML
     private void jcbModeItemStateChanged() {
         int mode = cbTravelMode.getSelectionModel().getSelectedIndex();
         int costs;
-        if (mode == ClientTravelMode.PUBLIC_TRANSPORT.ordinal()){
+        if (mode == ClientTravelMode.PUBLIC_TRANSPORT.ordinal()) {
             costs = 60;
             tfCosts.setEditable(true);
             tfCosts.setVisible(true);
