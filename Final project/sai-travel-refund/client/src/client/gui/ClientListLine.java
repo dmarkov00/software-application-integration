@@ -1,8 +1,8 @@
 package client.gui;
 
 
-import client.model.TravelRefundReply;
-import client.model.TravelRefundRequest;
+import models.client.TravelRefundReply;
+import models.client.TravelRefundRequest;
 
 class ClientListLine {
 

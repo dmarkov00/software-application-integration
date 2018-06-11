@@ -1,4 +1,4 @@
-package client.model;
+package models.client;
 /**
  * Each travel is from origin Address to destination Address.
  * @author mpesic

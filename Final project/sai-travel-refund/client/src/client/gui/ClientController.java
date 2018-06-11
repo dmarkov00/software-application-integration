@@ -1,10 +1,7 @@
 package client.gui;
 
 import client.backend.BrokerAppGateway;
-import client.model.Address;
-import client.model.ClientTravelMode;
-import client.model.TravelRefundReply;
-import client.model.TravelRefundRequest;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +9,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import models.client.Address;
+import models.client.ClientTravelMode;
+import models.client.TravelRefundRequest;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,10 +1,10 @@
-package client.backend;
+package utils;
 
-import client.model.TravelRefundReply;
-import client.model.TravelRefundRequest;
 import com.google.gson.Gson;
+import models.client.TravelRefundReply;
+import models.client.TravelRefundRequest;
 
-class TravelRefundSerializer {
+public class TravelRefundSerializer {
 
     private Gson gson = new Gson();
 

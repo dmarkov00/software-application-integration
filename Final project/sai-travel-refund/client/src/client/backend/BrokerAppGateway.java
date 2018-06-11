@@ -1,8 +1,9 @@
 package client.backend;
 
-import client.model.TravelRefundRequest;
 import gateways.MessageReceiverGateway;
 import gateways.MessageSenderGateway;
+import models.client.TravelRefundRequest;
+import utils.TravelRefundSerializer;
 
 import javax.jms.Message;
 
