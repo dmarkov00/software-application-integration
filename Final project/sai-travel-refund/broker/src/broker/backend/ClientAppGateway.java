@@ -43,7 +43,7 @@ public abstract class ClientAppGateway {
         // Calculate content enriching
         travelRefundRequest = callContentEnricher(travelRefundRequest);
 
-        // Pass the data to the Controller
+        // Pass the data to the GUI Controller
         onTravelRefundRequestArrived(travelRefundRequest);
     }
 
@@ -53,7 +53,7 @@ public abstract class ClientAppGateway {
     private TravelRefundRequest callContentEnricher(TravelRefundRequest travelRefundRequest) {
 
         if (travelRefundRequest.getMode() == ClientTravelMode.CAR) {
-            costsContentEnricher.getPricePerKilometer();
+            return costsContentEnricher.calculateCosts(travelRefundRequest);
         }
         return travelRefundRequest;
 
