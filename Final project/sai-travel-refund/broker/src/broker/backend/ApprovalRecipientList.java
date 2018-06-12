@@ -9,7 +9,7 @@ public class ApprovalRecipientList {
     Evaluator evaluator = new Evaluator();
 
     public void sendApprovalRequest() {
-
+//        evaluator.putVariable("cost",);
 
     }
 

@@ -1,4 +1,4 @@
-package approval.model;
+package models.approval;
 
 
 /**

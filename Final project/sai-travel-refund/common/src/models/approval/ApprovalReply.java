@@ -1,4 +1,4 @@
-package approval.model;
+package models.approval;
 
 /**
  * This class stores information about the approval reply for a travel
