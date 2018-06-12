@@ -24,8 +24,15 @@ public class CostsContentEnricher {
         Double pricePerKm = getPricePerKilometer();
         // Calculate costs
         Double costs = distance * pricePerKm;
-        // Set the new value
-        travelRefundRequest.setNewCosts(costs);
+        if (costs < 0) {
+            System.out.println("Some of the passed cities does not exist: Setting the costs to a random value");
+            // Set the negative value
+            travelRefundRequest.setNewCosts(12345);
+        } else {
+            // Set the new value
+            travelRefundRequest.setNewCosts(costs);
+        }
+
 
         return travelRefundRequest;
     }
@@ -68,7 +75,10 @@ public class CostsContentEnricher {
         if (response.getStatus() == Response.Status.OK.getStatusCode()) {
 
             String result = response.readEntity(String.class);
-
+            // Happens in the case when a not existing city is passed
+            if (result.contains("NOT_FOUND")) {
+                return -1d;
+            }
             // Get the distance in double
             Double distance = extractDistanceFromAPIResponse(result);
 
@@ -78,7 +88,7 @@ public class CostsContentEnricher {
         }
     }
 
-    Double extractDistanceFromAPIResponse(String distanceResponse) {
+    private Double extractDistanceFromAPIResponse(String distanceResponse) {
 
         // Split response into segments
         String segments[] = distanceResponse.split(":");
