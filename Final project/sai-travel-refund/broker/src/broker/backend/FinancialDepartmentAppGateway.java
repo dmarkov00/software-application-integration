@@ -7,9 +7,9 @@ import utils.TravelRefundSerializer;
 
 import javax.jms.Message;
 
-public class ApprovalAppGateway {
+public class FinancialDepartmentAppGateway {
     // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known queue name
-    private MessageSenderGateway sender = new MessageSenderGateway("approvalRequestQueue", null);
+    private MessageSenderGateway sender = new MessageSenderGateway("financialDepartmentRequestQueue", null);
     private MessageReceiverGateway receiver;
     private TravelRefundSerializer travelRefundSerializer = new TravelRefundSerializer();
 
@@ -22,5 +22,4 @@ public class ApprovalAppGateway {
 
         sender.send(msg);
     }
-
 }
