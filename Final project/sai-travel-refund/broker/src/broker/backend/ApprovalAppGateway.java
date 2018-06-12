@@ -1,4 +1,4 @@
-package client.backend;
+package broker.backend;
 
 import gateways.MessageReceiverGateway;
 import gateways.MessageSenderGateway;
@@ -7,14 +7,13 @@ import utils.TravelRefundSerializer;
 
 import javax.jms.Message;
 
-public class BrokerAppGateway {
-    // Having an extra reply queue parameter allows me to work with multiple instances of client
-    private MessageSenderGateway sender = new MessageSenderGateway("brokerRequestQueue", ReplyQueue.REPLY_QUEUE_NAME);
+public class ApprovalAppGateway {
+    // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known queue name
+    private MessageSenderGateway sender = new MessageSenderGateway("approvalRequestQueue", null);
     private MessageReceiverGateway receiver;
     private TravelRefundSerializer travelRefundSerializer = new TravelRefundSerializer();
 
-    public void requestTravelRefund(TravelRefundRequest travelRefundRequest) {
-
+    public void requestTravelRefundApproval(TravelRefundRequest travelRefundRequest) {
         // Serialize the object to JSON
         String travelRefundRequestAsJSON = travelRefundSerializer.requestToString(travelRefundRequest);
 
@@ -23,4 +22,5 @@ public class BrokerAppGateway {
 
         sender.send(msg);
     }
+
 }
