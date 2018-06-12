@@ -1,8 +1,8 @@
 package approval.gui;
 
 
-import approval.model.ApprovalReply;
-import approval.model.ApprovalRequest;
+import models.approval.ApprovalReply;
+import models.approval.ApprovalRequest;
 
 class ApprovalListLine {
 	

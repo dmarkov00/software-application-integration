@@ -2,6 +2,7 @@ package broker.backend;
 
 import gateways.MessageReceiverGateway;
 import gateways.MessageSenderGateway;
+import models.approval.ApprovalRequest;
 import models.client.ClientTravelMode;
 import models.client.TravelRefundRequest;
 import org.apache.activemq.command.ActiveMQTextMessage;
@@ -14,6 +15,7 @@ import javax.jms.MessageListener;
 public abstract class ClientAppGateway {
     private MessageSenderGateway sender;
     private CostsContentEnricher costsContentEnricher = new CostsContentEnricher();
+    private ApprovalRecipientList approvalRecipientList = new ApprovalRecipientList();
 
     protected ClientAppGateway() {
         MessageReceiverGateway receiver = new MessageReceiverGateway("brokerRequestQueue");
@@ -40,10 +42,16 @@ public abstract class ClientAppGateway {
         TravelRefundSerializer travelRefundSerializer = new TravelRefundSerializer();
         TravelRefundRequest travelRefundRequest = travelRefundSerializer.requestFromString(travelRefundRequestAsJSON);
 
-        // Calculate content enriching
+        // Calculate content enriching(update the costs value if needed)
         travelRefundRequest = callContentEnricher(travelRefundRequest);
 
-        // Pass the data to the GUI Controller
+        // Create an ApprovalRequest object
+        ApprovalRequest approvalRequest = new ApprovalRequest(travelRefundRequest.getTeacher(), travelRefundRequest.getStudent(), travelRefundRequest.getCosts());
+
+        // Send approval requests via the recipient list
+        approvalRecipientList.sendApprovalRequest(approvalRequest);
+
+        // Pass the travel refund request to the GUI Controller
         onTravelRefundRequestArrived(travelRefundRequest);
     }
 

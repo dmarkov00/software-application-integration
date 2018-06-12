@@ -2,8 +2,9 @@ package broker.backend;
 
 import gateways.MessageReceiverGateway;
 import gateways.MessageSenderGateway;
-import models.client.TravelRefundRequest;
-import utils.TravelRefundSerializer;
+import models.approval.ApprovalRequest;
+import utils.ApprovalSerializer;
+
 
 import javax.jms.Message;
 
@@ -12,14 +13,14 @@ public class InternshipAdministrationAppGateway {
     // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known queue name
     private MessageSenderGateway sender = new MessageSenderGateway("internshipAdministrationRequestQueue", null);
     private MessageReceiverGateway receiver;
-    private TravelRefundSerializer travelRefundSerializer = new TravelRefundSerializer();
+    private ApprovalSerializer approvalSerializer = new ApprovalSerializer();
 
-    public void requestTravelRefundApproval(TravelRefundRequest travelRefundRequest) {
+    public void requestApproval(ApprovalRequest approvalRequest) {
         // Serialize the object to JSON
-        String travelRefundRequestAsJSON = travelRefundSerializer.requestToString(travelRefundRequest);
+        String approvalRequestAsJSON = approvalSerializer.requestToString(approvalRequest);
 
         // Generate a message
-        Message msg = sender.createTextMessage(travelRefundRequestAsJSON);
+        Message msg = sender.createTextMessage(approvalRequestAsJSON);
 
         sender.send(msg);
     }
