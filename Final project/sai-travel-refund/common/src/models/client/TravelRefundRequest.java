@@ -1,10 +1,8 @@
 package models.client;
 
 /**
- *
  * This class stores all information about a request that a client submits to
  * get a travel refundation request.
- *
  */
 public class TravelRefundRequest {
 
@@ -85,13 +83,18 @@ public class TravelRefundRequest {
         this.costs = costs;
         if (costs <= 0) {
             mode = ClientTravelMode.CAR;
+        } else {
+            mode = ClientTravelMode.PUBLIC_TRANSPORT;
         }
+    }
 
+    public void setNewCosts(double costs) {
+        this.costs = costs;
     }
 
     @Override
     public String toString() {
-        return teacher + "-" + student + "-" + origin + "-" + destination +"-" +mode+"-"+costs;
+        return teacher + "-" + student + "-" + origin + "-" + destination + "-" + mode + "-" + costs;
     }
 
     public ClientTravelMode getMode() {

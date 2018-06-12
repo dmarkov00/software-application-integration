@@ -25,7 +25,7 @@ public class CostsContentEnricher {
         // Calculate costs
         Double costs = distance * pricePerKm;
         // Set the new value
-        travelRefundRequest.setCosts(costs);
+        travelRefundRequest.setNewCosts(costs);
 
         return travelRefundRequest;
     }
