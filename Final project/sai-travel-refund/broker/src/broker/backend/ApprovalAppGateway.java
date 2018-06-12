@@ -5,17 +5,18 @@ import gateways.MessageSenderGateway;
 import models.approval.ApprovalRequest;
 import utils.ApprovalSerializer;
 
-
 import javax.jms.Message;
 
-public class InternshipAdministrationAppGateway {
+public class ApprovalAppGateway {
 
-    // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known queue name
-    private MessageSenderGateway sender = new MessageSenderGateway("internshipAdministrationRequestQueue", "empty");
     private MessageReceiverGateway receiver;
     private ApprovalSerializer approvalSerializer = new ApprovalSerializer();
 
-    public void requestApproval(ApprovalRequest approvalRequest) {
+    public void requestApproval(ApprovalRequest approvalRequest,String requestQueue) {
+
+        // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known reply queue names
+        MessageSenderGateway sender = new MessageSenderGateway(requestQueue, "empty");
+
         // Serialize the object to JSON
         String approvalRequestAsJSON = approvalSerializer.requestToString(approvalRequest);
 

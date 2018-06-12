@@ -10,7 +10,7 @@ import javax.jms.Message;
 
 public class FinancialDepartmentAppGateway {
     // In this case of "sender" a reply queue is not needed to be specified because we work with only one broker with known queue name
-    private MessageSenderGateway sender = new MessageSenderGateway("financialDepartmentRequestQueue", null);
+    private MessageSenderGateway sender = new MessageSenderGateway("financialDepartmentRequestQueue", "empty");
     private MessageReceiverGateway receiver;
     private ApprovalSerializer approvalSerializer = new ApprovalSerializer();
 

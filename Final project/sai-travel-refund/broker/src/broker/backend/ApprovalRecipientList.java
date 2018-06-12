@@ -7,8 +7,7 @@ import net.sourceforge.jeval.*;
 public class ApprovalRecipientList {
 
     private Evaluator evaluator = new Evaluator();
-    private FinancialDepartmentAppGateway financialDepartmentAppGateway = new FinancialDepartmentAppGateway();
-    private InternshipAdministrationAppGateway internshipAdministrationAppGateway = new InternshipAdministrationAppGateway();
+    private ApprovalAppGateway approvalAppGateway = new ApprovalAppGateway();
 
     public void sendApprovalRequest(ApprovalRequest approvalRequest) {
         // A rule is created only for the financial department because Internship Administration is always notified
@@ -27,10 +26,11 @@ public class ApprovalRecipientList {
 
         if (shouldSendToFinancialDepartment) {
             // Send an approval request to the financial department
-            financialDepartmentAppGateway.requestApproval(approvalRequest);
+            approvalAppGateway.requestApproval(approvalRequest, "financialDepartmentRequestQueue");
         }
         // Send an approval request to the internship administration
-        internshipAdministrationAppGateway.requestApproval(approvalRequest);
+        approvalAppGateway.requestApproval(approvalRequest, "internshipAdministrationRequestQueue");
+
 
     }
 

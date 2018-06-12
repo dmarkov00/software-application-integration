@@ -23,6 +23,7 @@ public abstract class ClientAppGateway {
         receiver.setListener(new MessageListener() {
             @Override
             public void onMessage(Message message) {
+
                 handleMessage(message);
             }
         });
