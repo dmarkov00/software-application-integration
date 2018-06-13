@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import models.approval.ApprovalReply;
 import models.approval.ApprovalRequest;
 import models.client.TravelRefundRequest;
@@ -55,42 +52,49 @@ public class ApprovalController implements Initializable {
 
 
     private void sendApprovalReply() {
-        ApprovalListLine approvalListLine = lvRequestReply.getSelectionModel().getSelectedItems().get(0);
-        int aggregationID = approvalListLine.getRequest().aggregationID;
-        ApprovalReply approvalReply = null;
-        if (rbApprove.isSelected()) {
+        // Retrieve the index of the selected item from the list view
+        int selectedItemIndex = lvRequestReply.getSelectionModel().getSelectedIndex();
 
-            approvalReply = new ApprovalReply(true, "");
+        // Making a check if any of the items is selected, only then proceed
+        if (selectedItemIndex >= 0) {
 
-        } else if (rbReject.isSelected()) {
-            switch (approvalName) {
-                case "Financial Department":
-                    approvalReply = new ApprovalReply(false, "Internship administration");
-                    break;
+            // Check if any of the radio buttons is selected
+            if (rbApprove.isSelected() || rbReject.isSelected()) {
 
-                case "Internship Administration":
-                    approvalReply = new ApprovalReply(false, "Financial department");
-                    break;
+                // Retrieving the selected line from the list view as a ApprovalListLine object
+                ApprovalListLine approvalListLine = lvRequestReply.getSelectionModel().getSelectedItems().get(0);
+
+                // If the retrieved ApprovalListLine has an reply object assigned, this means that it has already been answered
+                if (approvalListLine.getReply() != null) {
+                    new Alert(Alert.AlertType.INFORMATION, "You already replied to this one").show();
+                    return;
+                }
+                // Extract the aggregation id from the ApprovalRequest object(we set it earlier in the BrokerAppGateway)
+                int aggregationID = approvalListLine.getRequest().aggregationID;
+
+                ApprovalReply approvalReply = null;
+
+                if (rbApprove.isSelected()) {
+                    approvalReply = new ApprovalReply(true, "");
+
+                } else if (rbReject.isSelected()) {
+                    approvalReply = new ApprovalReply(false, approvalName);
+                }
+
+                // Sending the reply via JMS
+                brokerAppGateway.sendApprovalReply(approvalReply, aggregationID);
+
+                // Updating the list view
+                approvalListLine.setReply(approvalReply);
+                lvRequestReply.refresh();
+            } else {
+                new Alert(Alert.AlertType.INFORMATION, "Please select a radio button").show();
             }
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "Select an item form the list view first.").show();
         }
-
-        brokerAppGateway.sendApprovalReply(approvalReply, aggregationID);
-
-        approvalListLine.setReply(approvalReply);
-        lvRequestReply.refresh();
     }
 
-//    private ApprovalListLine getRequestReply(ApprovalRequest request) {
-//
-//        for (int i = 0; i < lvRequestReply.getItems().size(); i++) {
-//            ApprovalListLine rr = lvRequestReply.getItems().get(i);
-//            if (rr.getRequest() == request) {
-//                return rr;
-//            }
-//        }
-//
-//        return null;
-//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
