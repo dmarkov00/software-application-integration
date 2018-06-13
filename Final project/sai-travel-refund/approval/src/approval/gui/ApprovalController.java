@@ -56,7 +56,6 @@ public class ApprovalController implements Initializable {
 
         if(rbApprove.isSelected()){
             System.out.println("approve");
-
         } else if(rbReject.isSelected()){
             System.out.println("rejected");
         }

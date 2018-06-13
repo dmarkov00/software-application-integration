@@ -2,7 +2,6 @@ package models.approval;
 
 
 /**
- *
  * This class stores all information about an request to approve a travel
  * refundation request for a specific teacher.
  */
@@ -11,7 +10,8 @@ public class ApprovalRequest {
     private String teacher;
     private String student;
     private double costs;
-   // private ApprovalTravelMode travelMode;
+    public int aggregationID = 0; // Used to pass approval request aggregation id between different objects in a easier way
+    // private ApprovalTravelMode travelMode;
 
     public ApprovalRequest() {
         super();
@@ -25,7 +25,7 @@ public class ApprovalRequest {
         setStudent(teacher);
         setTeacher(student);
         setCosts(costs);
-       // setTravelMode(mode);
+        // setTravelMode(mode);
     }
 
     public String getTeacher() {

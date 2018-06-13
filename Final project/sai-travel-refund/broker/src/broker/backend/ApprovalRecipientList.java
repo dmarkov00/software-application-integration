@@ -9,7 +9,7 @@ public class ApprovalRecipientList {
     private Evaluator evaluator = new Evaluator();
     private ApprovalAppGateway approvalAppGateway = new ApprovalAppGateway();
 
-    private int aggregationID; // Used by the aggregator to merge replies
+    private static int aggregationID; // Used by the aggregator to merge replies
 
     public void sendApprovalRequest(ApprovalRequest approvalRequest) {
         // A rule is created only for the financial department because Internship Administration is always notified
