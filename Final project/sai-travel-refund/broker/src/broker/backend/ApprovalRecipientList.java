@@ -7,7 +7,7 @@ import net.sourceforge.jeval.*;
 public class ApprovalRecipientList {
 
     private Evaluator evaluator = new Evaluator();
-    private ApprovalAppGateway approvalAppGateway = new ApprovalAppGateway();
+    private ApprovalAppGateway approvalAppGateway;
 
     private static int aggregationID; // Used by the aggregator to merge replies
 

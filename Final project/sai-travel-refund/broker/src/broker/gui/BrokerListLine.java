@@ -1,13 +1,16 @@
 package broker.gui;
 
-import models.client.TravelRefundReply;
+import models.approval.ApprovalReply;
 import models.client.TravelRefundRequest;
 
+/**
+ * The BrokerListLine is a combination of TravelRefundRequest and ApprovalReply
+ */
 public class BrokerListLine {
     private TravelRefundRequest request;
-    private TravelRefundReply reply;
+    private ApprovalReply reply;
 
-    public BrokerListLine(TravelRefundRequest request, TravelRefundReply reply) {
+    public BrokerListLine(TravelRefundRequest request, ApprovalReply reply) {
         this.request = request;
         this.reply = reply;
     }
@@ -20,11 +23,11 @@ public class BrokerListLine {
         this.request = request;
     }
 
-    public TravelRefundReply getReply() {
+    public ApprovalReply getReply() {
         return reply;
     }
 
-    public void setReply(TravelRefundReply reply) {
+    public void setReply(ApprovalReply reply) {
         this.reply = reply;
     }
 

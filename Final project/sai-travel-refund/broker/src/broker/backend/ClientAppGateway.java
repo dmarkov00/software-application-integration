@@ -46,14 +46,14 @@ public abstract class ClientAppGateway {
         // Calculate content enriching(update the costs value if needed)
         travelRefundRequest = callContentEnricher(travelRefundRequest);
 
+        // Pass the travel refund request to the GUI Controller
+        onTravelRefundRequestArrived(travelRefundRequest);
+
         // Create an ApprovalRequest object
         ApprovalRequest approvalRequest = new ApprovalRequest(travelRefundRequest.getTeacher(), travelRefundRequest.getStudent(), travelRefundRequest.getCosts());
 
         // Send approval requests via the recipient list
         approvalRecipientList.sendApprovalRequest(approvalRequest);
-
-        // Pass the travel refund request to the GUI Controller
-        onTravelRefundRequestArrived(travelRefundRequest);
     }
 
     /**
