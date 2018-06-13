@@ -1,6 +1,7 @@
 package approval.gui;
 
 import approval.backend.BrokerAppGateway;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,22 +28,29 @@ public class ApprovalController implements Initializable {
 
     private String approvalName;
 
-    public ApprovalController(String approvalName) {
-        this.approvalName = approvalName;
+    private BrokerAppGateway brokerAppGateway;
 
+
+    ApprovalController(String approvalName) {
+        this.approvalName = approvalName;
+        brokerAppGateway = new BrokerAppGateway(approvalName) {
+
+            @Override
+            public void onApprovalRequestArrived(ApprovalRequest approvalRequest) {
+
+                // Create new line for visualizing
+                ApprovalListLine approvalListLine = new ApprovalListLine(approvalRequest, null);
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        lvRequestReply.getItems().add(approvalListLine);
+                    }
+                });
+            }
+        };
     }
 
-    BrokerAppGateway brokerAppGateway = new BrokerAppGateway() {
-        @Override
-        public void onInternshipAdministrationApprovalRequestArrived(ApprovalRequest approvalRequest) {
-
-        }
-
-        @Override
-        public void onFinancialDepartmentApprovalRequestArrived(ApprovalRequest approvalRequest) {
-
-        }
-    };
 
     private void sendApprovalReply() {
         // TO DO create and send ApprovalReply
