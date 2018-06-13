@@ -1,5 +1,6 @@
 package approval.gui;
 
+import approval.backend.BrokerAppGateway;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import models.approval.ApprovalRequest;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,8 +32,20 @@ public class ApprovalController implements Initializable {
 
     }
 
+    BrokerAppGateway brokerAppGateway = new BrokerAppGateway() {
+        @Override
+        public void onInternshipAdministrationApprovalRequestArrived(ApprovalRequest approvalRequest) {
+
+        }
+
+        @Override
+        public void onFinancialDepartmentApprovalRequestArrived(ApprovalRequest approvalRequest) {
+
+        }
+    };
+
     private void sendApprovalReply() {
-       // TO DO create and send ApprovalReply
+        // TO DO create and send ApprovalReply
     }
 
     @Override
