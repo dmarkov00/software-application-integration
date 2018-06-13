@@ -1,6 +1,8 @@
 package approval.backend;
 
 import gateways.MessageReceiverGateway;
+import gateways.MessageSenderGateway;
+import models.approval.ApprovalReply;
 import models.approval.ApprovalRequest;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import utils.ApprovalSerializer;
@@ -13,6 +15,9 @@ import javax.jms.MessageListener;
  * Used as a combined gateway for working wi both financial dep. and internship administration
  */
 public abstract class BrokerAppGateway {
+
+    private MessageSenderGateway sender = new MessageSenderGateway("approvalReplyQueue", "empty"); // Reply queue is not needed
+
     private ApprovalSerializer approvalSerializer = new ApprovalSerializer();
 
     protected BrokerAppGateway(String approvalName) {
@@ -52,6 +57,15 @@ public abstract class BrokerAppGateway {
         ApprovalRequest approvalRequest = approvalSerializer.requestFromString(approvalRequestAsJSON);
 
         onApprovalRequestArrived(approvalRequest);
+    }
+
+    public void sendApprovalReply(ApprovalReply approvalReply) {
+        String approvalReplyAsJSON = approvalSerializer.replyToString(approvalReply);
+
+        Message msg = sender.createTextMessage(approvalReplyAsJSON);
+
+
+        sender.send(msg);
     }
 
     public abstract void onApprovalRequestArrived(ApprovalRequest approvalRequest);

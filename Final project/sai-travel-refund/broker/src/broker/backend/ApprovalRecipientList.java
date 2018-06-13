@@ -9,6 +9,8 @@ public class ApprovalRecipientList {
     private Evaluator evaluator = new Evaluator();
     private ApprovalAppGateway approvalAppGateway = new ApprovalAppGateway();
 
+    private int aggregationID; // Used by the aggregator to merge replies
+
     public void sendApprovalRequest(ApprovalRequest approvalRequest) {
         // A rule is created only for the financial department because Internship Administration is always notified
         String financialDepartment = "#{costs} >=50";
@@ -25,11 +27,14 @@ public class ApprovalRecipientList {
         boolean shouldSendToFinancialDepartment = result.equals("1.0");
 
         if (shouldSendToFinancialDepartment) {
+            // We generate new aggregation id only in case both of the approval request are going be made
+            aggregationID++;
+
             // Send an approval request to the financial department
-            approvalAppGateway.requestApproval(approvalRequest, "financialDepartmentRequestQueue");
+            approvalAppGateway.requestApproval(approvalRequest, "financialDepartmentRequestQueue", aggregationID);
         }
         // Send an approval request to the internship administration
-        approvalAppGateway.requestApproval(approvalRequest, "internshipAdministrationRequestQueue");
+        approvalAppGateway.requestApproval(approvalRequest, "internshipAdministrationRequestQueue", aggregationID);
 
 
     }

@@ -53,7 +53,13 @@ public class ApprovalController implements Initializable {
 
 
     private void sendApprovalReply() {
-        // TO DO create and send ApprovalReply
+
+        if(rbApprove.isSelected()){
+            System.out.println("approve");
+
+        } else if(rbReject.isSelected()){
+            System.out.println("rejected");
+        }
     }
 
     @Override
