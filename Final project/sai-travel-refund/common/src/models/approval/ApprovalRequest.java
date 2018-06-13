@@ -11,6 +11,7 @@ public class ApprovalRequest {
     private String student;
     private double costs;
     public int aggregationID = 0; // Used to pass approval request aggregation id between different objects in a easier way
+    public String messageID; // Store it here and use it for correlations
     // private ApprovalTravelMode travelMode;
 
     public ApprovalRequest() {

@@ -71,6 +71,8 @@ public class ApprovalController implements Initializable {
                 }
                 // Extract the aggregation id from the ApprovalRequest object(we set it earlier in the BrokerAppGateway)
                 int aggregationID = approvalListLine.getRequest().aggregationID;
+                // Extract the message ID which is set as a correlation ID later on
+                String messageID = approvalListLine.getRequest().messageID;
 
                 ApprovalReply approvalReply = null;
 
@@ -82,7 +84,7 @@ public class ApprovalController implements Initializable {
                 }
 
                 // Sending the reply via JMS
-                brokerAppGateway.sendApprovalReply(approvalReply, aggregationID);
+                brokerAppGateway.sendApprovalReply(approvalReply, messageID, aggregationID);
 
                 // Updating the list view
                 approvalListLine.setReply(approvalReply);

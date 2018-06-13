@@ -32,10 +32,12 @@ public abstract class ClientAppGateway {
 
     private void handleMessage(Message message) {
         String travelRefundRequestAsJSON = null;
-
-        // Retrieve the text from the Message object
+        String messageID = null;
         try {
+            // Retrieve the text from the Message object
             travelRefundRequestAsJSON = ((ActiveMQTextMessage) message).getText();
+            // Retrieve message ID
+            messageID = message.getJMSMessageID();
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -47,7 +49,7 @@ public abstract class ClientAppGateway {
         travelRefundRequest = callContentEnricher(travelRefundRequest);
 
         // Pass the travel refund request to the GUI Controller
-        onTravelRefundRequestArrived(travelRefundRequest);
+        onTravelRefundRequestArrived(travelRefundRequest, messageID);
 
         // Create an ApprovalRequest object
         ApprovalRequest approvalRequest = new ApprovalRequest(travelRefundRequest.getTeacher(), travelRefundRequest.getStudent(), travelRefundRequest.getCosts());
@@ -68,7 +70,7 @@ public abstract class ClientAppGateway {
 
     }
 
-    protected abstract void onTravelRefundRequestArrived(TravelRefundRequest travelRefundRequest);
+    protected abstract void onTravelRefundRequestArrived(TravelRefundRequest travelRefundRequest, String messageID);
 
     public void sendLoanReply() {
 

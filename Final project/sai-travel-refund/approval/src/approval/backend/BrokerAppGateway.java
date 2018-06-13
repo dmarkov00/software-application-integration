@@ -49,12 +49,13 @@ public abstract class BrokerAppGateway {
 
         String approvalRequestAsJSON = null;
         int aggregationID = 0;
+        String messageID = null;
         try {
             approvalRequestAsJSON = ((ActiveMQTextMessage) message).getText();
 
             // Retrieve the aggregation id, used later on when sending reply to this request message
             aggregationID = message.getIntProperty("aggregationID");
-
+            messageID = message.getJMSMessageID();
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -65,10 +66,14 @@ public abstract class BrokerAppGateway {
         // Set aggregation id later reference when sending replies
         approvalRequest.aggregationID = aggregationID;
 
-        onApprovalRequestArrived(approvalRequest);
+        //Set message ID
+        approvalRequest.messageID = messageID;
+
+
+        onApprovalRequestArrived(approvalRequest, messageID);
     }
 
-    public void sendApprovalReply(ApprovalReply approvalReply, int aggregationID) {
+    public void sendApprovalReply(ApprovalReply approvalReply, String correlationID, int aggregationID) {
         String approvalReplyAsJSON = approvalSerializer.replyToString(approvalReply);
 
         Message msg = sender.createTextMessage(approvalReplyAsJSON);
@@ -77,12 +82,15 @@ public abstract class BrokerAppGateway {
             // Setting aggregation if, which is later used in the aggregator, inside broker app
             msg.setIntProperty("aggregationID", aggregationID);
 
+            // Set a correlation id that is being matched in the broker application and the result is shown
+            msg.setJMSCorrelationID(correlationID);
+
         } catch (JMSException e) {
             e.printStackTrace();
         }
         sender.send(msg);
     }
 
-    public abstract void onApprovalRequestArrived(ApprovalRequest approvalRequest);
+    public abstract void onApprovalRequestArrived(ApprovalRequest approvalRequest, String messageID);
 
 }

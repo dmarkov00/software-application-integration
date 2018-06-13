@@ -21,15 +21,22 @@ public abstract class ApprovalAppGateway {
             @Override
             public void onMessage(Message message) {
 
+                String messageCorrelationID = null;
+                try {
+                    messageCorrelationID = message.getJMSCorrelationID();
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+
                 // Pass data to the aggregator
                 ApprovalReply approvalReply = approvalRepliesAggregator.aggregateData(message);
 
                 // If approvalReply is null, this means that the aggregator still needs to receive more data to generate a reply
-                if(approvalReply == null){
+                if (approvalReply == null) {
                     return;
                 }
 
-                onApprovalReplyArrived(approvalReply);
+                onApprovalReplyArrived(approvalReply, messageCorrelationID);
             }
         });
     }
@@ -55,5 +62,5 @@ public abstract class ApprovalAppGateway {
         sender.send(msg);
     }
 
-    public abstract void onApprovalReplyArrived(ApprovalReply approvalReply);
+    public abstract void onApprovalReplyArrived(ApprovalReply approvalReply, String messageID);
 }
