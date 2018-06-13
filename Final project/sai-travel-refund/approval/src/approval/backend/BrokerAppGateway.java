@@ -74,7 +74,7 @@ public abstract class BrokerAppGateway {
         Message msg = sender.createTextMessage(approvalReplyAsJSON);
 
         try {
-            // Later used in the aggregator, inside broker app
+            // Setting aggregation if, which is later used in the aggregator, inside broker app
             msg.setIntProperty("aggregationID", aggregationID);
 
         } catch (JMSException e) {
