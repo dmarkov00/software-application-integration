@@ -14,10 +14,9 @@ import javax.jms.MessageListener;
 public abstract class BrokerAppGateway {
     // Having an extra reply queue parameter allows me to work with multiple instances of client
     private MessageSenderGateway sender = new MessageSenderGateway("brokerRequestQueue", ReplyQueue.REPLY_QUEUE_NAME);
-    private MessageReceiverGateway receiver;
     private TravelRefundSerializer travelRefundSerializer = new TravelRefundSerializer();
 
-    public BrokerAppGateway() {
+    protected BrokerAppGateway() {
         MessageReceiverGateway receiver = new MessageReceiverGateway(ReplyQueue.REPLY_QUEUE_NAME);
 
         receiver.setListener(new MessageListener() {

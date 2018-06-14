@@ -82,7 +82,7 @@ public abstract class ClientAppGateway {
 
     public void sendTravelRefundReply(TravelRefundReply travelRefundReply, String correlationID, String clientReplyQueue) {
 
-        MessageSenderGateway sender = new MessageSenderGateway("travelRefundReplyQueue", "empty");
+        MessageSenderGateway sender = new MessageSenderGateway("travelRefundReplyQueue", "empty"); // That is the default reply queue of the client
 
         // Serialize to JSON
         String travelRefundReplyAsJSON = travelRefundSerializer.replyToString(travelRefundReply);

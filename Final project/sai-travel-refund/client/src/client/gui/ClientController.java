@@ -69,17 +69,7 @@ public class ClientController implements Initializable {
 
     }
 
-//    private ClientListLine getRequestReply(TravelRefundRequest request) {
-//
-//        for (int i = 0; i < lvRequestReply.getItems().size(); i++) {
-//            ClientListLine rr = lvRequestReply.getItems().get(i);
-//            if (rr.getRequest() == request) {
-//                return rr;
-//            }
-//        }
-//
-//        return null;
-//    }
+
 
     @FXML
     private void jbSendActionPerformed() {
@@ -141,4 +131,17 @@ public class ClientController implements Initializable {
         }
         return null;
     }
+
+
+    //    private ClientListLine getRequestReply(TravelRefundRequest request) {
+//
+//        for (int i = 0; i < lvRequestReply.getItems().size(); i++) {
+//            ClientListLine rr = lvRequestReply.getItems().get(i);
+//            if (rr.getRequest() == request) {
+//                return rr;
+//            }
+//        }
+//
+//        return null;
+//    }
 }
