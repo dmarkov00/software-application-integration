@@ -11,9 +11,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import models.client.Address;
 import models.client.ClientTravelMode;
+import models.client.TravelRefundReply;
 import models.client.TravelRefundRequest;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class ClientController implements Initializable {
@@ -42,7 +45,21 @@ public class ClientController implements Initializable {
     @FXML
     private ListView<ClientListLine> lvRequestReply;
 
-    private BrokerAppGateway brokerAppGateway = new BrokerAppGateway();
+    private Map<String, ClientListLine> messageIDToClientListLineMap = new HashMap<>();
+
+    private BrokerAppGateway brokerAppGateway = new BrokerAppGateway() {
+        @Override
+        public void onTravelRefundReplyArrived(TravelRefundReply travelRefundReply, String correlationID) {
+
+            // Retrieve the list line with the same message Id as the correlation id
+            ClientListLine clientListLine = findListLineByCorrelationID(correlationID);
+
+            // Update the list line with the new reply
+            clientListLine.setReply(travelRefundReply);
+
+            lvRequestReply.refresh();
+        }
+    };
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,17 +69,17 @@ public class ClientController implements Initializable {
 
     }
 
-    private ClientListLine getRequestReply(TravelRefundRequest request) {
-
-        for (int i = 0; i < lvRequestReply.getItems().size(); i++) {
-            ClientListLine rr = lvRequestReply.getItems().get(i);
-            if (rr.getRequest() == request) {
-                return rr;
-            }
-        }
-
-        return null;
-    }
+//    private ClientListLine getRequestReply(TravelRefundRequest request) {
+//
+//        for (int i = 0; i < lvRequestReply.getItems().size(); i++) {
+//            ClientListLine rr = lvRequestReply.getItems().get(i);
+//            if (rr.getRequest() == request) {
+//                return rr;
+//            }
+//        }
+//
+//        return null;
+//    }
 
     @FXML
     private void jbSendActionPerformed() {
@@ -81,10 +98,13 @@ public class ClientController implements Initializable {
         TravelRefundRequest travelRefundRequest = new TravelRefundRequest(teacher, student, origin, destination, costs);
 
         // Call the app gateway and send a request
-        brokerAppGateway.requestTravelRefund(travelRefundRequest);
+        String messageID = brokerAppGateway.requestTravelRefund(travelRefundRequest);
 
         //Create a ListView line with the request and add it to the list view
-        ClientListLine listViewLine = new ClientListLine(travelRefundRequest,null);
+        ClientListLine listViewLine = new ClientListLine(travelRefundRequest, null);
+
+        //Update the map, so later we can correlate with the reply
+        messageIDToClientListLineMap.put(messageID, listViewLine);
 
         Platform.runLater(new Runnable() {
             @Override
@@ -110,5 +130,15 @@ public class ClientController implements Initializable {
             lbCosts.setVisible(false);
         }
         tfCosts.setText(Integer.toString(costs));
+    }
+
+    private ClientListLine findListLineByCorrelationID(String correlationID) {
+
+        for (Map.Entry<String, ClientListLine> listLine : messageIDToClientListLineMap.entrySet()) {
+            if (listLine.getKey().equals(correlationID)) {
+                return listLine.getValue();
+            }
+        }
+        return null;
     }
 }

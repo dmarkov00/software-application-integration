@@ -45,7 +45,7 @@ public class BrokerController implements Initializable {
     private ApprovalAppGateway approvalAppGateway = new ApprovalAppGateway() {
         @Override
         public void onApprovalReplyArrived(ApprovalReply approvalReply, String messageCorrelationID) {
-            // Retrieve the list line with the same Id as the correlation id
+            // Retrieve the list line with the same message Id as the correlation id
             BrokerListLine brokerListLine = findListLineByCorrelationID(messageCorrelationID);
 
             brokerListLine.setReply(approvalReply);
