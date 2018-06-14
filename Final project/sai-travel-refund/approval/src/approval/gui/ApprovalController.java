@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import models.approval.ApprovalReply;
 import models.approval.ApprovalRequest;
-import models.client.TravelRefundRequest;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -72,7 +71,7 @@ public class ApprovalController implements Initializable {
                 // Extract the aggregation id from the ApprovalRequest object(we set it earlier in the BrokerAppGateway)
                 int aggregationID = approvalListLine.getRequest().aggregationID;
                 // Extract the message ID which is set as a correlation ID later on
-                String messageID = approvalListLine.getRequest().messageID;
+                String messageID = approvalListLine.getRequest().messageCorrelationID;
 
                 ApprovalReply approvalReply = null;
 

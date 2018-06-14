@@ -86,6 +86,7 @@ public class ApprovalRepliesAggregator {
             ApprovalReply approvalReply = approvalSerializer.replyFromString(approvalReplyAsJSON);
 
             // Append the reasons rejected
+            reasonsRejected.append(" ");
             reasonsRejected.append(approvalReply.getReasonRejected());
 
             isApproved = approvalReply.isApproved();

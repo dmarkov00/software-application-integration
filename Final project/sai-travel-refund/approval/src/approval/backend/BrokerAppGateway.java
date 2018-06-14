@@ -10,8 +10,6 @@ import utils.ApprovalSerializer;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Used as a combined gateway for working wi both financial dep. and internship administration
@@ -49,13 +47,13 @@ public abstract class BrokerAppGateway {
 
         String approvalRequestAsJSON = null;
         int aggregationID = 0;
-        String messageID = null;
+        String messageCorrelationID = null;
         try {
             approvalRequestAsJSON = ((ActiveMQTextMessage) message).getText();
 
             // Retrieve the aggregation id, used later on when sending reply to this request message
             aggregationID = message.getIntProperty("aggregationID");
-            messageID = message.getJMSMessageID();
+            messageCorrelationID = ((ActiveMQTextMessage) message).getCorrelationId();
         } catch (JMSException e) {
             e.printStackTrace();
         }
@@ -66,11 +64,13 @@ public abstract class BrokerAppGateway {
         // Set aggregation id later reference when sending replies
         approvalRequest.aggregationID = aggregationID;
 
-        //Set message ID
-        approvalRequest.messageID = messageID;
+        //Set message correlation ID
+        approvalRequest.messageCorrelationID = messageCorrelationID;
+        System.out.println("handle message broker app gateway");
 
+        System.out.println(messageCorrelationID);
 
-        onApprovalRequestArrived(approvalRequest, messageID);
+        onApprovalRequestArrived(approvalRequest);
     }
 
     public void sendApprovalReply(ApprovalReply approvalReply, String correlationID, int aggregationID) {
@@ -91,6 +91,6 @@ public abstract class BrokerAppGateway {
         sender.send(msg);
     }
 
-    public abstract void onApprovalRequestArrived(ApprovalRequest approvalRequest, String messageID);
+    public abstract void onApprovalRequestArrived(ApprovalRequest approvalRequest);
 
 }

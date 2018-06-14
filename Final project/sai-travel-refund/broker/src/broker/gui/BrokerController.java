@@ -28,6 +28,9 @@ public class BrokerController implements Initializable {
             //Create a ListView line with the request and add it to the list view
             BrokerListLine listViewLine = new BrokerListLine(travelRefundRequest, null);
 
+            // Update the correlation map, used relate request with responses
+            messageIDToBrokerListLineMap.put(messageID, listViewLine);
+
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -46,6 +49,8 @@ public class BrokerController implements Initializable {
             BrokerListLine brokerListLine = findListLineByCorrelationID(messageCorrelationID);
 
             brokerListLine.setReply(approvalReply);
+            lvBrokerRequestReply.refresh();
+
         }
     };
 

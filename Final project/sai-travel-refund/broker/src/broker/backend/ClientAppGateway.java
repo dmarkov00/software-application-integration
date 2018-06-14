@@ -50,12 +50,14 @@ public abstract class ClientAppGateway {
 
         // Pass the travel refund request to the GUI Controller
         onTravelRefundRequestArrived(travelRefundRequest, messageID);
+        System.out.println("The handles");
 
+        System.out.println(messageID);
         // Create an ApprovalRequest object
         ApprovalRequest approvalRequest = new ApprovalRequest(travelRefundRequest.getTeacher(), travelRefundRequest.getStudent(), travelRefundRequest.getCosts());
 
-        // Send approval requests via the recipient list
-        approvalRecipientList.sendApprovalRequest(approvalRequest);
+        // Send approval requests via the recipient list and pass the message id of the original travel refund request, so later we can correlate to it
+        approvalRecipientList.sendApprovalRequest(approvalRequest, messageID);
     }
 
     /**
