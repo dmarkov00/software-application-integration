@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import models.approval.ApprovalReply;
+import models.client.TravelRefundReply;
 import models.client.TravelRefundRequest;
 
 import java.net.URL;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class BrokerController implements Initializable {
+public class BrokerController {
 
     @FXML
     private ListView<BrokerListLine> lvBrokerRequestReply;
@@ -37,8 +38,6 @@ public class BrokerController implements Initializable {
                     lvBrokerRequestReply.getItems().add(listViewLine);
                 }
             });
-
-
         }
     };
 
@@ -48,8 +47,20 @@ public class BrokerController implements Initializable {
             // Retrieve the list line with the same message Id as the correlation id
             BrokerListLine brokerListLine = findListLineByCorrelationID(messageCorrelationID);
 
+            // Update the list with the approval reply
             brokerListLine.setReply(approvalReply);
             lvBrokerRequestReply.refresh();
+
+            // Get the original request
+            TravelRefundRequest travelRefundRequest = brokerListLine.getRequest();
+
+            // Create a new travel refund reply, using the data from the ApprovalReply and the costs from the original TravelRefundRequest
+            TravelRefundReply travelRefundReply = new TravelRefundReply(approvalReply.isApproved(), approvalReply.getReasonRejected(), travelRefundRequest.getCosts());
+
+            // Get the initially set reply queue
+            String replyQueue = travelRefundRequest.replyQueue;
+
+            clientAppGateway.sendTravelRefundReply(travelRefundReply, messageCorrelationID, replyQueue);
 
         }
     };
@@ -64,10 +75,5 @@ public class BrokerController implements Initializable {
         return null;
     }
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
 
 }

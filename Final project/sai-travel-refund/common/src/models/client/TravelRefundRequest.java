@@ -12,6 +12,8 @@ public class TravelRefundRequest {
     private String student;
     private double costs;
     private ClientTravelMode mode;
+    // Extra field
+    public String replyQueue = "";
 
     public TravelRefundRequest() {
         super();

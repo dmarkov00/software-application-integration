@@ -34,6 +34,9 @@ public abstract class ApprovalAppGateway {
                 if (approvalReply == null) {
                     return;
                 }
+
+
+
                 onApprovalReplyArrived(approvalReply, messageCorrelationID);
             }
         });
